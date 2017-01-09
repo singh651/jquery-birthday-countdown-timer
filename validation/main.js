@@ -15,28 +15,48 @@
 
   // The following function implements all validation process
   function initValidation(index) {
-   var validationRules = {
+
+    // Set validation rule for each filed
+    var validationRules = {
     'required' : function (value) {
       if (!value) {
         alert('empty field');
       }
     },
-    'name' : function (value) {
+    'name' : function (value, element) {
+      debugger
+      var onlyLetters = /[a-zA-Z]/g;
+      var minLengt = $(element).attr('data-validate-minlength');
+      var maxLengt = $(element).attr('data-validate-maxlength');
+      if ( onlyLetters.test(value) ) {
+        if (value.length > minLengt && value.length < maxLengt) {
 
+        } else {
+        alert('min max length');
+        }
+      } else {
+        alert('only letters');
+      } 
     }
 
    }
+   
     // Get all input elements to validate from current form
     var $inputesForValidate = $( 'input[type!="submit"]', $('[data-validate]').get(index) );
-fieldValidation($inputesForValidate);
-    function fieldValidation($inputesForValidate) {
+    // Start fields validation
+    fieldValidation($inputesForValidate);
 
+
+    function fieldValidation($inputesForValidate) {
       $inputesForValidate.each(function (index, element) {
         debugger
+        var atributes = $(element).attributes;
         if ( $(element).is('[data-validate-required]') ) {
-          debugger
-          var aa = $(element).val();
-          validationRules.required(aa);
+          validationRules.required( $(element).val() );
+        }
+
+        if ( $(element).is('[name = "name"]') ) {
+          validationRules.name( $(element).val() ); 
         }
       });
 
@@ -50,7 +70,6 @@ fieldValidation($inputesForValidate);
     //   });
     //   return valuesForValidate;
     // }
-    // console.log(valuesForValidate);
    }
 
 

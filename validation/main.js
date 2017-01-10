@@ -23,23 +23,41 @@
         alert('empty field');
       }
     },
-    'name' : function (value, element) {
+    'data-validate-name' : function (value, element) {
       debugger
       var onlyLetters = /[a-zA-Z]/g,
           minLengt = parseInt( $(element).attr('data-validate-minlength') ),
           maxLengt = parseInt( $(element).attr('data-validate-maxlength') );
 
       if ( onlyLetters.test(value) ) {
-        if (value.length > minLengt && value.length < maxLengt) {
-
-        } else {
+        if ( !(value.length >= minLengt && value.length < maxLengt) ) {
           alert('min max length');
         }
       } else {
         alert('only letters');
       } 
     },
-
+    'data-validate-email' : function (value, element) {
+      debugger
+      var emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
+      if ( !emailRegexp.test(value) ) {
+        alert('encprrect email');
+      }
+    },
+    'data-validate-date' : function (value, element) {
+      debugger
+      var currentDate = moment().format('DD/MM/YYYY');
+      if (value !== currentDate) {
+        alert('error date');
+      }
+    },
+    'data-validate-ip' : function (value, element) {
+      debugger
+      var ipRegexp = $(element).attr('data-validate-regexp');
+      if ( !ipRegexp.test(value) ) {
+        alert('error ip');
+      }
+    }
    }
    
 

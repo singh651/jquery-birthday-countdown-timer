@@ -7,8 +7,8 @@
 </head>
 <body>
   <form data-validate action="send form">
-    <input name="name" placeholder="Alan" data-validate-required data-validate-minlength="5" data-validate-maxlength="30" />
-    <input name="email" placeholder="alan72@gmail.com" data-validate-required data-validate-email />
+    <input data-validate-required name="name" placeholder="Alan" data-validate-minlength="5" data-validate-maxlength="30" />
+    <input data-validate-required name="email" placeholder="alan72@gmail.com" data-validate-email />
     <input name="date" placeholder="dd/mm/yyyy" data-validate-date />
     <input name="ip" placeholder="0.0.0.0" data-validate-regexp="^\d+\.\d+\.\d+\.\d+$" />
     <input type="submit" value="Send" />

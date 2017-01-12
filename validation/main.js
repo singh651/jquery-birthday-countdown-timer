@@ -24,7 +24,7 @@
       }
     },
     'data-validate-name' : function (value, element) {
-      debugger
+      // User can write only fix length letter string on "name" filed 
       var onlyLetters = /[a-zA-Z]/g,
           minLengt = parseInt( $(element).attr('data-validate-minlength') ),
           maxLengt = parseInt( $(element).attr('data-validate-maxlength') );
@@ -38,14 +38,14 @@
       } 
     },
     'data-validate-email' : function (value, element) {
-      debugger
+      // The following variable saves regular expression for email validation
       var emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
+
       if ( !emailRegexp.test(value) ) {
         alert('encprrect email');
       }
     },
     'data-validate-date' : function (value, element) {
-      debugger
       var currentDate = moment().format('DD/MM/YYYY');
       if (value !== currentDate) {
         alert('error date');
@@ -53,7 +53,8 @@
     },
     'data-validate-ip' : function (value, element) {
       debugger
-      var ipRegexp = $(element).attr('data-validate-regexp');
+      var ipRegexpValue = $(element).attr('data-validate-regexp');
+      var ipRegexp = new RegExp(ipRegexpValue, 'm');
       if ( !ipRegexp.test(value) ) {
         alert('error ip');
       }
@@ -68,11 +69,11 @@
 
     function fieldValidation($inputesForValidate) {
       $inputesForValidate.each(function (index, element) {
-        debugger
+        // debugger
         var currentInputValue = $(element).val();
         var attributes = this.attributes;
         $(attributes).each(function (index, attribute) {
-          debugger
+          // debugger
           var attributeName = attribute.name;
           if ( validationRules.hasOwnProperty(attributeName) ) {
           validationRules[attributeName](currentInputValue, element);

@@ -81,7 +81,8 @@
         });
       });
     }
-    console.log(errorFieldsList);
+    // Highlight all error fileds
+    errorHighlight(errorFieldsList);
   }
 
   // The following function crates list of all error fields 
@@ -89,6 +90,17 @@
     if ( $.inArray(element, array) === -1 ) {
       array.push(element);
     }
+  }
+
+  // The following function highlight all error field and set focus for first of them
+  function errorHighlight(array) {
+    $(array).each(function (index, element) {
+      // debugger
+      $(element).css('border', '2px solid red');
+    });
+    // debugger
+    var a = $(array).get(0);
+    $(array).get(0).focus();
   }
 
   // The following function selectes all form for validation

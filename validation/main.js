@@ -11,16 +11,17 @@
 
 
 
-  //----------------------------------------------Start functions description----------------------------------------------------
+  //-----------------------------------------Start functions description----------------------------------------------------
 
   // The following function implements all validation process
   function initValidation(index) {
+    var errorFieldsList = [];
 
     // Set validation rule for each filed
     var validationRules = {
     'data-validate-required' : function (value, element) {
       if (!value) {
-        alert('empty field');
+        createErrorFieldsList(element, errorFieldsList);
       }
     },
     'data-validate-name' : function (value, element) {
@@ -31,10 +32,10 @@
 
       if ( onlyLetters.test(value) ) {
         if ( !(value.length >= minLengt && value.length < maxLengt) ) {
-          alert('min max length');
+          createErrorFieldsList(element, errorFieldsList);
         }
       } else {
-        alert('only letters');
+        createErrorFieldsList(element, errorFieldsList);
       } 
     },
     'data-validate-email' : function (value, element) {
@@ -42,26 +43,25 @@
       var emailRegexp = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(?:[A-Z]{2}|com|org|net|gov|mil|biz|info|mobi|name|aero|jobs|museum)\b/;
 
       if ( !emailRegexp.test(value) ) {
-        alert('encprrect email');
+        createErrorFieldsList(element, errorFieldsList);
       }
     },
     'data-validate-date' : function (value, element) {
       var currentDate = moment().format('DD/MM/YYYY');
       if (value !== currentDate) {
-        alert('error date');
+        createErrorFieldsList(element, errorFieldsList);
       }
     },
     'data-validate-ip' : function (value, element) {
-      debugger
+      // Create regExp for ip validation 
       var ipRegexpValue = $(element).attr('data-validate-regexp');
       var ipRegexp = new RegExp(ipRegexpValue, 'm');
       if ( !ipRegexp.test(value) ) {
-        alert('error ip');
+        createErrorFieldsList(element, errorFieldsList);
       }
     }
    }
    
-
     // Get all input elements to validate from current form
     var $inputesForValidate = $( 'input[type!="submit"]', $('[data-validate]').get(index) );
     // Start fields validation
@@ -77,29 +77,19 @@
           var attributeName = attribute.name;
           if ( validationRules.hasOwnProperty(attributeName) ) {
           validationRules[attributeName](currentInputValue, element);
-          // validationRules.attribute( $(element).val() );
           }
         });
-        // if ( $(element).is('[data-validate-required]') ) {
-        // }
-
-        // if ( $(element).is('[name = "name"]') ) {
-        //   validationRules.name( $(element).val() ); 
-        // }
       });
-
     }
-    // The following function get user's values for future validation
-    // valuesForValidate = getValidateInputes(index);
-    // function getValidateInputes(index) {
-    //   debugger
-    //   elementsForValidate.each(function (index, element) {
-    //     valuesForValidate.push( $(element).val() );
-    //   });
-    //   return valuesForValidate;
-    // }
-   }
+    console.log(errorFieldsList);
+  }
 
+  // The following function crates list of all error fields 
+  function createErrorFieldsList(element, array) {
+    if ( $.inArray(element, array) === -1 ) {
+      array.push(element);
+    }
+  }
 
   // The following function selectes all form for validation
   function getElementForValidation() {
@@ -109,5 +99,5 @@
 
 
 
-  //---------------------------------------------End functions description-------------------------------------------------------
+  //----------------------------------------End functions description-------------------------------------------------------
 })();

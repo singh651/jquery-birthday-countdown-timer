@@ -64,6 +64,8 @@
    
     // Get all input elements to validate from current form
     var $inputesForValidate = $( 'input[type!="submit"]', $('[data-validate]').get(index) );
+debugger
+    resetErrorHighlight($inputesForValidate);
     // Start fields validation
     fieldValidation($inputesForValidate);
 
@@ -95,12 +97,17 @@
   // The following function highlight all error field and set focus for first of them
   function errorHighlight(array) {
     $(array).each(function (index, element) {
-      // debugger
       $(element).css('border', '2px solid red');
     });
-    // debugger
     var a = $(array).get(0);
     $(array).get(0).focus();
+  }
+
+  // The following function reset all error red border with input elements
+  function resetErrorHighlight(inputList) {
+    $(inputList).each(function (index, element) {
+      $(element).css('border', '2px inset');
+    });
   }
 
   // The following function selectes all form for validation

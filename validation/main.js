@@ -2,9 +2,14 @@
   // Get all form to validate
   var $formsForValidate = getElementForValidation();
   // Start validation after click on "Send" button
+
+  // rules list (div)
+    var rulesList = $('.formRulesList');
   $formsForValidate.each(function (index, element) {
     $(element).on('submit', function (e, index) {
       e.preventDefault();
+      // clean rules before each validation
+    cleanRulesList (rulesList);
       initValidation(index);
     });
   });
@@ -22,6 +27,7 @@
     'data-validate-required' : function (value, element) {
       if (!value) {
         createErrorFieldsList(element, errorFieldsList);
+        showFormRules( $(element).attr('name') + ' must been required', rulesList);
       }
     },
     'data-validate-name' : function (value, element) {
@@ -64,8 +70,9 @@
    
     // Get all input elements to validate from current form
     var $inputesForValidate = $( 'input[type!="submit"]', $('[data-validate]').get(index) );
-debugger
+
     resetErrorHighlight($inputesForValidate);
+    debugger
     // Start fields validation
     fieldValidation($inputesForValidate);
 
@@ -108,6 +115,17 @@ debugger
     $(inputList).each(function (index, element) {
       $(element).css('border', '2px inset');
     });
+  }
+
+//clean early set rules
+  function cleanRulesList (rulesList) {
+    $(rulesList).empty();
+  }
+
+// show enter rules for each valid filed 
+  function showFormRules(textRule, rulesList) {
+    debugger
+    $(rulesList).append('<li>' + textRule + '</li>');
   }
 
   // The following function selectes all form for validation

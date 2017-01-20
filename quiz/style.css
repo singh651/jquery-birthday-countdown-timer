@@ -1,8 +1,11 @@
-.sliderBox {
-  /*width: 750px;*/
-  padding: 15%;
-  background: blue;
+
+img {
+  width: 85%;
+  margin:auto;
 }
-.quiz-images {
-  width: 500px;
+
+.wrapper {
+  /*width: 85%;*/
+  padding: 25px;
+  background: red;
 }

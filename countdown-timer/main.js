@@ -1,9 +1,22 @@
 (function initCountDownTimer() {
+  var currentCoundDownProcess;
+$('.birthdayDate').on('submit', function(e){
+    debugger
+    e.preventDefault();
+ var userBirthdayDate = getBirthdayDateDifference();
+ if (currentCoundDownProcess) {
+  clearInterval(currentCoundDownProcess);
+ }
+currentCoundDownProcess = countDown(userBirthdayDate);
 
-
+});
   // Following function implement count down process 
   function countDown(countDowmTime) {
-    var timeIntervalId = setInterval(function () {
+    // if (timeIntervalId) {
+    //     clearInterval(timeIntervalId);
+      
+    // }
+    timeIntervalId = setInterval(function () {
       // Following object saves time settings for timer
       var timesSettings = {
         seconds: 3,
@@ -19,7 +32,7 @@
       // Check values of array elements
       if ( verifyTheArrayElements(countDowmTime) ) {
         clearInterval(timeIntervalId);
-        alert('done');
+        showTimer(countDowmTime);
         break;
       } else if (currentElement === 0) {
         for (var a = 0; a < countDowmTime.length; a++) {
@@ -30,12 +43,10 @@
             break;
           }
         }  
-        console.log(countDowmTime);
         showTimer(countDowmTime);
         break;
       } else {
         countDowmTime[i] = --currentElement;
-        console.log(countDowmTime);
          showTimer(countDowmTime)
         break;
       } 
@@ -53,24 +64,23 @@
     }
 
     function showTimer(array) {
-      // debugger
       var pageNumberElements = $('.col-lg-3 .text-wrapper');
       $(pageNumberElements).each(function (index) {
         $(this).text(array[index]);
       });
     }
   }, 1000);
+    return timeIntervalId;
 }
 
 
-})();
-      
       // Following function creates array with parameters for countDown function
       function getBirthdayDateDifference() {
         // Create user birthday date
         var birthDayDate = $('[name="birthday"]').val();
         var birthMonthDate = $('[name="birthmonth"]').val();
         var birthdayYear = moment().format('YY');
+        var c = (birthDayDate + '-' + birthMonthDate + '-' + birthdayYear);
         var userBorthday = moment(birthDayDate + '-' + birthMonthDate + '-' + birthdayYear).format('DD/MM/YYYY');
         // Get current date
         var currentDate = moment().format('DD/MM/YYYY HH:mm:ss');
@@ -86,6 +96,8 @@
         // Get time duration between two dates
         var differenceTimeDuration = moment.duration(milisecondsDifference);
         // Create array with parameters
-        var countDownTimeParameters = [differenceTimeDuration.seconds(), differenceTimeDuration.minutes(), differenceTimeDuration.hours(), Math.round( differenceTimeDuration.asDays() )];
-        return countDownTimeParameters;
+        // var countDownTimeParameters = [differenceTimeDuration.seconds(), differenceTimeDuration.minutes(), differenceTimeDuration.hours(), Math.round( differenceTimeDuration.asDays() )];
+        return [differenceTimeDuration.seconds(), differenceTimeDuration.minutes(), differenceTimeDuration.hours(), Math.round( differenceTimeDuration.asDays() )];
       };
+})();
+      

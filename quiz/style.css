@@ -1,11 +1,11 @@
-
+body {
+  background: black;
+}
 img {
   width: 85%;
   margin:auto;
 }
 
 .wrapper {
-  /*width: 85%;*/
   padding: 25px;
-  background: red;
 }

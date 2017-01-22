@@ -1,8 +1,8 @@
 (function initCountDownTimer() {
   var currentCoundDownProcess;
   $('.birthdayDate').on('submit', function(e){
-  debugger
     e.preventDefault();
+  debugger
     var userBirthdayDate = getBirthdayDateDifference();
     // Reset previous contDown process
     if (currentCoundDownProcess) {
@@ -45,7 +45,7 @@
           break;
         } else {
           countDowmTime[i] = --currentElement;
-          showTimer(countDowmTime)
+          showTimer(countDowmTime);
           break;
         } 
       } 
@@ -72,35 +72,28 @@
 
     return timeIntervalId;
   }
+
   // Following function creates array with parameters for countDown function
-      function getBirthdayDateDifference() {
-        // Create user birthday date
-        var birthDayDate = $('[name="birthday"]').val();
-        var birthMonthDate = $('[name="birthmonth"]').val();
-        debugger
-        var birthdayYear = moment().format('YYYY');
-        var c = (birthdayYear + '-' + birthMonthDate + '-' + birthDayDate);
-        // c = String(c);
-        var l = new Date(c); 
-        var userBorthday = moment(c).format('DD/MM/YYYY');
-        var day2 = moment("1995-12-25");
-        // var userBorthday = moment(birthDayDate + '/' + birthMonthDate + '/' + birthdayYear).format('DD/MM/YYYY');
-        // Get current date
-        var currentDate = moment().format('DD/MM/YYYY HH:mm:ss');
-        // Count time difference bettwen current date and user birthday
-        var milisecondsDifference = moment(userBorthday, "DD/MM/YYYY HH:mm:ss").diff( moment(currentDate, "DD/MM/YYYY HH:mm:ss") );
-        if (milisecondsDifference < 0) {
-          // Add one year to user birthday for positive difference 
-          var birthdayYear = moment().add(1, 'years').format('YY');
-          var userBorthday = moment(birthDayDate + '-' + birthMonthDate + '-' + birthdayYear).format('DD/MM/YYYY');
-          var currentDate = moment().format('DD/MM/YYYY HH:mm:ss');
-          var milisecondsDifference = moment(userBorthday,"DD/MM/YYYY HH:mm:ss").diff( moment(currentDate,"DD/MM/YYYY HH:mm:ss") );
-        }
-        // Get time duration between two dates
-        var differenceTimeDuration = moment.duration(milisecondsDifference);
-        // Create array with parameters
-        // var countDownTimeParameters = [differenceTimeDuration.seconds(), differenceTimeDuration.minutes(), differenceTimeDuration.hours(), Math.round( differenceTimeDuration.asDays() )];
-        return [differenceTimeDuration.seconds(), differenceTimeDuration.minutes(), differenceTimeDuration.hours(), Math.round( differenceTimeDuration.asDays() )];
-      };
+  function getBirthdayDateDifference() {
+    // Create user birthday date
+    var birthDayDate = $('[name="birthday"]').val();
+    var birthMonthDate = $('[name="birthmonth"]').val();
+    var birthdayYear = moment().format('YYYY');
+    var userBirthday = moment(birthdayYear + '-' + birthMonthDate + '-' + birthDayDate).format('DD/MM/YYYY');
+    // Get current date
+    var currentDate = moment().format('DD/MM/YYYY HH:mm:ss');
+    // Count time difference bettwen current date and user birthday
+    var milisecondsDifference = moment(userBirthday, "DD/MM/YYYY HH:mm:ss").diff( moment(currentDate, "DD/MM/YYYY HH:mm:ss") );
+    if (milisecondsDifference < 0) {
+      // Add one year to user birthday for positive difference 
+      birthdayYear = moment().add(1, 'years').format('YYYY');
+      userBirthday = moment(birthdayYear + '-' + birthMonthDate + '-' + birthDayDate).format('DD/MM/YYYY');
+      currentDate = moment().format('DD/MM/YYYY HH:mm:ss');
+      milisecondsDifference = moment(userBirthday,"DD/MM/YYYY HH:mm:ss").diff( moment(currentDate,"DD/MM/HH:mm:ss") );
+    }
+    // Get time duration between two dates
+    var differenceTimeDuration = moment.duration(milisecondsDifference);
+    // Return array with parameters
+    return [differenceTimeDuration.seconds(), differenceTimeDuration.minutes(), differenceTimeDuration.hours(), Math.round( differenceTimeDuration.asDays() )];
+ }
 })();
-      

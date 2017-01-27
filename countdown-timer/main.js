@@ -2,7 +2,6 @@
   var currentCoundDownProcess;
   $('.birthdayDate').on('submit', function(e){
     e.preventDefault();
-  debugger
     var userBirthdayDate = getBirthdayDateDifference();
     // Reset previous contDown process
     if (currentCoundDownProcess) {
